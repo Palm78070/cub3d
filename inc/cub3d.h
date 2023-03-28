@@ -53,14 +53,16 @@ typedef struct s_minimap
 {
  void *img;
  char *rl_path;
- int img_w;
- int img_h;
+ int imgW;
+ int imgH;
 } t_minimap;
 
 typedef struct s_vector
 {
     int tireX;
     int tireY;
+    int img_posX;
+    int img_posY;
     float posX;
     float posY;
     float dirX;
@@ -81,8 +83,8 @@ typedef struct s_cub3d
  char **mapfile;
  t_list **tmpmap;
  t_mapinfo map;
- t_minimap miniMp;
- t_vector   vector;
+ t_minimap mnMp;
+ t_vector   vec;
 } t_cub3d;
 
 extern t_cub3d mstr;

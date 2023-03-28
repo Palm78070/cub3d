@@ -24,7 +24,11 @@ int initmstr(t_cub3d *mstr)
  mstr->map.mapH = 0;
  mstr->map.tire_w = 30;
  mstr->map.tire_h = 30;
- mstr->miniMp.rl_path = "./img/Basic_red_dot.xpm";
+ mstr->mnMp.rl_path = "./img/red_dot_30.xpm";
+ mstr->vec.tireX = -1;
+ mstr->vec.tireY = -1;
+ mstr->vec.img_posX = (mstr->map.sc_w / 2) - 15;
+ mstr->vec.img_posY = (mstr->map.sc_h / 2) - 15;
  return (0);
 }
 
@@ -38,7 +42,7 @@ void mlx_setup()
 		ft_error("Failed to open mlx_new_window()\n");
  mstr.mlx.img_ptr = mlx_new_image(mstr.mlx.ptr, 400, 400);
  mstr.mlx.img_addr = mlx_get_data_addr(mstr.mlx.img_ptr, &mstr.mlx.bpp, &mstr.mlx.size_line, &mstr.mlx.endian);
- mstr.miniMp.img = mlx_xpm_file_to_image(mstr.mlx.ptr, mstr.miniMp.rl_path, &mstr.miniMp.img_w, &mstr.miniMp.img_h);
- if (!mstr.miniMp.img)
-		ft_error("Failed to create player icon in minimap\n");
+//  mstr.miniMp.img = mlx_xpm_file_to_image(mstr.mlx.ptr, mstr.miniMp.rl_path, &mstr.miniMp.img_w, &mstr.miniMp.img_h);
+//  if (!mstr.miniMp.img)
+// 		ft_error("Failed to create player icon in minimap\n");
 }
