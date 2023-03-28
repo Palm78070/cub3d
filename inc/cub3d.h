@@ -59,13 +59,21 @@ typedef struct s_minimap
 
 typedef struct s_vector
 {
- float posX;
- float posY;
- float dirX;
- float dirY;
- float planeX;
- float planeY;
+    int tireX;
+    int tireY;
+    float posX;
+    float posY;
+    float dirX;
+    float dirY;
+    float planeX;
+    float planeY;
 } t_vector;
+
+// typedef struct s_tire
+// {
+//     int x;
+//     int y;
+// } t_tire;
 
 typedef struct s_cub3d
 {
@@ -74,6 +82,7 @@ typedef struct s_cub3d
  t_list **tmpmap;
  t_mapinfo map;
  t_minimap miniMp;
+ t_vector   vector;
 } t_cub3d;
 
 extern t_cub3d mstr;
