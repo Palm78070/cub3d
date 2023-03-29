@@ -23,38 +23,38 @@
 
 typedef struct s_mapinfo
 {
- char *no;
- char *so;
- char *we;
- char *ea;
- char *ceil;
- char *flor;
- char **map;
- int sc_w;
- int sc_h;
- int mapW;
- int mapH;
- int tire_w;
- int tire_h;
+    char *no;
+    char *so;
+    char *we;
+    char *ea;
+    char *ceil;
+    char *flor;
+    char **map;
+    int sc_w;
+    int sc_h;
+    int mapW;
+    int mapH;
+    int tire_w;
+    int tire_h;
 } t_mapinfo;
 
 typedef struct s_mlx
 {
- void *ptr;
- void *win;
- void *img_ptr;
- char *img_addr;
- int bpp;
- int size_line;
- int endian;
+    void *ptr;
+    void *win;
+    void *img_ptr;
+    char *img_addr;
+    int bpp;
+    int size_line;
+    int endian;
 } t_mlx;
 
 typedef struct s_minimap
 {
- void *img;
- char *rl_path;
- int imgW;
- int imgH;
+    void *img;
+    char *rl_path;
+    int imgW;
+    int imgH;
 } t_minimap;
 
 typedef struct s_vector
@@ -79,12 +79,12 @@ typedef struct s_vector
 
 typedef struct s_cub3d
 {
- t_mlx mlx;
- char **mapfile;
- t_list **tmpmap;
- t_mapinfo map;
- t_minimap mnMp;
- t_vector   vec;
+    t_mlx mlx;
+    char **mapfile;
+    t_list **tmpmap;
+    t_mapinfo map;
+    t_minimap mnMp;
+    t_vector vec;
 } t_cub3d;
 
 extern t_cub3d mstr;

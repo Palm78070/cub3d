@@ -1,117 +1,143 @@
 #include "cub3d.h"
 
-void	draw_tire(int x, int y)
+void draw_tire(int x, int y)
 {
-	int tire_w;
-	int tire_h;
+ int tire_w;
+ int tire_h;
 
-	tire_w = mstr.map.tire_w;
-	tire_h = mstr.map.tire_h;
-	line(x, y, x, y + tire_h);
-	line(x, y, x + tire_w, y);
-	x += tire_w;
-	line(x, y, x, y + tire_h);
-	y += tire_h;
-	line(x, y, x - tire_w, y);
+ tire_w = mstr.map.tire_w;
+ tire_h = mstr.map.tire_h;
+ line(x, y, x, y + tire_h);
+ line(x, y, x + tire_w, y);
+ x += tire_w;
+ line(x, y, x, y + tire_h);
+ y += tire_h;
+ line(x, y, x - tire_w, y);
 }
 
-void	find_player_pos(void)
+void draw_wall(int x, int y)
 {
-	int w;
-	int h;
+ line(x, y, x + 30, y + 30);
+ line(x + 30, y, x, y + 30);
+ mlx_put_image_to_window(&mstr, mstr.mlx.win, mstr.mlx.img_ptr, x, y);
+}
 
-	w = -1;
-	h = -1;
-	while (++h < mstr.map.mapH)
-	{
+void find_player_pos(void)
+{
+ int w;
+ int h;
+
+ w = -1;
+ h = -1;
+ while (++h < mstr.map.mapH)
+ {
 		w = -1;
-		while (++w < mstr.map.mapW)
+		while (++w < (int)ft_strlen(mstr.map.map[h]) - 1)
 		{
 			if (mstr.map.map[h][w] && is_keyword(mstr.map.map[h][w]))
 			{
 				mstr.vec.tireX = w;
 				mstr.vec.tireY = h;
 				printf("player current tire (x:%i, y:%i)\n", mstr.vec.tireX, mstr.vec.tireY);
-				return ;
+				return;
 			}
 		}
-	}
+ }
 }
 
-void	find_first_pos(int *x, int *y)
+int input_ok(int tireX, int tireY)
 {
-	int	first_x;
-	int	first_y;
-	int	tire_x;
-	int	tire_y;
+ // int map_width;
 
-	first_x = mstr.map.sc_w / 2;
-	first_y = mstr.map.sc_h / 2;
-	tire_x = mstr.vec.tireX;
-	tire_y = mstr.vec.tireY;
-	printf("tire_x %i\n", tire_x);
-	printf("tire_y %i\n", tire_y);
-	//////////////////////////////
-	printf("first_x before %i\n", first_x);
-	printf("first_y before %i\n", first_y);
-	//////////////////////////////
-	while (tire_y-- >= 0)
-		first_y -= 30;
-	while (tire_x-- >= 0)
-		first_x -= 30;
-	printf("tire_x after %i\n", tire_x);
-	printf("tire_y after %i\n", tire_y);
-	printf("first_x after %i\n", first_x);
-	printf("first_y after %i\n", first_y);
-	*x = first_x;
-	*y = first_y;
+ // map_width = ft_strlen(mstr.map.map[tireY]) - 1;
+ if (mstr.map.map == NULL || mstr.map.mapW < 0 || mstr.map.mapH < 0)
+		return (0);
+ if (tireX < 0 || tireY < 0 || tireY > mstr.map.mapH - 1 || tireX > (int)ft_strlen(mstr.map.map[tireY]) - 2)
+		return (0);
+ return (1);
 }
 
-void	draw_minimap(int x, int y)
+void fill_zone(int tireX, int tireY, int imgPosX, int imgPosY)
 {
-	int w;
-	int h;
+ int tire_w;
+ int tire_h;
+ char **map;
 
-	w = -1;
-	h = -1;
-	if (mstr.vec.tireX == -1 || mstr.vec.tireY == -1)
+ tire_w = mstr.map.tire_w;
+ tire_h = mstr.map.tire_h;
+ map = mstr.map.map;
+ if (!input_ok(tireX, tireY))
+		return;
+ // printf("tire x: %i y: %i mapW %i\n", tireX, tireY, mstr.map.mapW);
+ // printf("map[%i][%i] is %c\n", tireY, tireX, map[tireY][tireX]);
+ if (map[tireY][tireX] == '2')
+ {
+		printf("\\\\\\\\out of recusion\\\\\\\\\n");
+		return;
+ }
+ if (map[tireY][tireX] == '1')
+		draw_wall(imgPosX, imgPosY);
+ map[tireY][tireX] = '2';
+ draw_tire(imgPosX, imgPosY);
+ // left
+ if (input_ok(tireX - 1, tireY) && map[tireY][tireX - 1] != '2')
+		fill_zone(tireX - 1, tireY, imgPosX - tire_w, imgPosY);
+ // right
+ if (input_ok(tireX + 1, tireY) && map[tireY][tireX + 1] != '2')
+		fill_zone(tireX + 1, tireY, imgPosX + tire_w, imgPosY);
+ // top
+ if (input_ok(tireX, tireY - 1) && map[tireY - 1][tireX] != '2')
+		fill_zone(tireX, tireY - 1, imgPosX, imgPosY - tire_h);
+ // down
+ if (input_ok(tireX, tireY + 1) && map[tireY + 1][tireX] != '2')
+		fill_zone(tireX, tireY + 1, imgPosX, imgPosY + tire_h);
+}
+
+void flood_tire(void)
+{
+ int tireX;
+ int tireY;
+
+ tireX = mstr.vec.tireX;
+ tireY = mstr.vec.tireY;
+ if (!input_ok(tireX, tireY))
+		return;
+ fill_zone(tireX, tireY, mstr.vec.img_posX, mstr.vec.img_posY);
+}
+
+void draw_minimap(int x, int y)
+{
+ int w;
+ int h;
+
+ w = -1;
+ h = -1;
+ if (mstr.vec.tireX == -1 || mstr.vec.tireY == -1)
 		find_player_pos();
-	/////////////////////test middle//////////////////////////////
-	line(mstr.vec.img_posX, mstr.vec.img_posY, mstr.vec.img_posX + 200, mstr.vec.img_posY - 200);
-	mlx_put_image_to_window(&mstr, mstr.mlx.win, mstr.mlx.img_ptr, mstr.vec.img_posX, mstr.vec.img_posY);
-	///////////////////////////////////////////////////
-	find_first_pos(&x, &y);
-	while (++h < mstr.map.mapH)
-	{
+ while (++h < mstr.map.mapH)
+ {
 		w = -1;
 		x = 0;
-		while (++w < mstr.map.mapW)
+		while (++w < (int)ft_strlen(mstr.map.map[h]) - 1)
 		{
-			//////////////test wall//////////////////////
-			if (mstr.map.map[h][w] && mstr.map.map[h][w] == '1')
-			{
-				line(x, y, x + 30, y + 30);
-				line(x + 30, y, x, y + 30);
-				mlx_put_image_to_window(&mstr, mstr.mlx.win, mstr.mlx.img_ptr, x, y);
-			}
-			////////////////////////////////////////////
 			if (mstr.map.map[h][w] && is_keyword(mstr.map.map[h][w]))
 			{
-				mstr.mnMp.img = mlx_xpm_file_to_image(mstr.mlx.ptr, \
-					mstr.mnMp.rl_path, &mstr.mnMp.imgW, &mstr.mnMp.imgH);
+				mstr.mnMp.img = mlx_xpm_file_to_image(mstr.mlx.ptr,
+																																										mstr.mnMp.rl_path, &mstr.mnMp.imgW, &mstr.mnMp.imgH);
 				if (!mstr.mnMp.img)
 					ft_error("Failed to create player icon in minimap\n");
 			}
-			draw_tire(x, y);
+			// draw_tire(x, y);
 			x += mstr.map.tire_w;
 		}
 		y += mstr.map.tire_h;
-	}
-	line(0, 0, 400, 400);
-	line(400, 0, 0, 400);
-	mlx_put_image_to_window(&mstr, mstr.mlx.win, mstr.mlx.img_ptr, 0, 0);
-	mlx_put_image_to_window(&mstr, mstr.mlx.win, mstr.mnMp.img, \
-			mstr.vec.img_posX, mstr.vec.img_posY);
+ }
+ flood_tire();
+ line(0, 0, 400, 400);
+ line(400, 0, 0, 400);
+ mlx_put_image_to_window(&mstr, mstr.mlx.win, mstr.mlx.img_ptr, 0, 0);
+ mlx_put_image_to_window(&mstr, mstr.mlx.win, mstr.mnMp.img,
+																									mstr.vec.img_posX, mstr.vec.img_posY);
 }
 // printf("found keyword %c\n", mstr.map.map[h][w]);
 // printf("player current tire (%i, %i)\n", mstr.vector.tireY, mstr.vector.tireX);

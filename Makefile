@@ -1,7 +1,8 @@
 NAME = cub3D
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
+#CFLAGS = -Wall -Werror -Wextra -g
 
 #MLX_MACOS
 MLX_INC = -Imlx
