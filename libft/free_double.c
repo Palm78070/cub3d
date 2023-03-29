@@ -12,18 +12,18 @@
 
 #include "libft.h"
 
-void	free_double(char **s)
+void free_double(char **s)
 {
-	int	i;
+ int i;
 
-	i = -1;
-	while (s[++i] != NULL)
-	{
+ i = -1;
+ while (s[++i] != NULL)
+ {
 		free(s[i]);
 		s[i] = NULL;
-	}
-	free(s[i]);
-	s[i] = NULL;
-	free(s);
-	s = NULL;
+ }
+ free(s[i]);
+ s[i] = NULL;
+ free(s);
+ s = NULL;
 }

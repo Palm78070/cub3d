@@ -18,6 +18,7 @@ int initmstr(t_cub3d *mstr)
  if (mstr->tmpmap == NULL)
 		return (1);
  *(mstr->tmpmap) = NULL;
+ mstr->map.tmp = NULL;
  mstr->map.sc_w = 400;
  mstr->map.sc_h = 400;
  mstr->map.mapW = 0;
@@ -42,7 +43,7 @@ void mlx_setup()
 		ft_error("Failed to open mlx_new_window()\n");
  mstr.mlx.img_ptr = mlx_new_image(mstr.mlx.ptr, 400, 400);
  mstr.mlx.img_addr = mlx_get_data_addr(mstr.mlx.img_ptr, &mstr.mlx.bpp, &mstr.mlx.size_line, &mstr.mlx.endian);
-//  mstr.miniMp.img = mlx_xpm_file_to_image(mstr.mlx.ptr, mstr.miniMp.rl_path, &mstr.miniMp.img_w, &mstr.miniMp.img_h);
-//  if (!mstr.miniMp.img)
-// 		ft_error("Failed to create player icon in minimap\n");
+ //  mstr.miniMp.img = mlx_xpm_file_to_image(mstr.mlx.ptr, mstr.miniMp.rl_path, &mstr.miniMp.img_w, &mstr.miniMp.img_h);
+ //  if (!mstr.miniMp.img)
+ // 		ft_error("Failed to create player icon in minimap\n");
 }

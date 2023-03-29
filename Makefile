@@ -2,7 +2,7 @@ NAME = cub3D
 
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
-#CFLAGS = -Wall -Werror -Wextra -g
+#CFLAGS = -Wall -Werror -Wextra -g -fsanitize=leak
 
 #MLX_MACOS
 MLX_INC = -Imlx
@@ -27,6 +27,7 @@ SRCS = cub3d.c \
 		stormapinfo.c \
 		hook.c \
 		draw.c \
+		minimap_utils.c \
 		minimap.c \
 		clear.c \
 

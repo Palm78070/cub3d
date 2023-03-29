@@ -12,15 +12,17 @@
 
 #include "libft.h"
 
-size_t	ft_strlen(const char *s)
+size_t ft_strlen(const char *s)
 {
-	size_t	n;
+ size_t n;
 
-	n = 0;
-	while (*s)
-	{
+ n = 0;
+ if (s == NULL)
+		ft_putstr_fd("s is NULL\n", 1);
+ while (*s)
+ {
 		++s;
 		++n;
-	}
-	return (n);
+ }
+ return (n);
 }

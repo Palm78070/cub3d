@@ -30,6 +30,7 @@ typedef struct s_mapinfo
     char *ceil;
     char *flor;
     char **map;
+    char **tmp;
     int sc_w;
     int sc_h;
     int mapW;
@@ -114,7 +115,11 @@ int handle_cross(void);
 // draw
 void ft_pixel_put(int x, int y, int color);
 void line(float x0, float y0, float x1, float y1);
+// minimap_utils
+void flood_tire(void);
 // minimap
+void draw_tire(int x, int y);
+void draw_wall(int x, int y);
 void draw_minimap(int x, int y);
 // clear
 void ft_clear(void);
