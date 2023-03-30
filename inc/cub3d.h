@@ -112,6 +112,7 @@ void mlx_setup();
 // hook
 int handle_key(int key_code);
 int handle_cross(void);
+int handle_walk(int key_code);
 // draw
 void ft_pixel_put(int x, int y, int color);
 void line(float x0, float y0, float x1, float y1);
