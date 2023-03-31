@@ -78,7 +78,7 @@ void stormapinfo(t_list *tmpmap, t_mapinfo *map)
 			if (mstr.map.mapW - 1 < map_w - 1)
 				mstr.map.mapW = map_w - 1;
 		}
-		printf("length %zu\n", ft_strlen(map->map[i]));
+		// printf("length %zu\n", ft_strlen(map->map[i]));
 		printf("%s", map->map[i]);
 		tmpmap = tmpmap->next;
 		i++;

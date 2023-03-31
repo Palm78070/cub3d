@@ -117,11 +117,13 @@ int handle_walk(int key_code);
 void ft_pixel_put(int x, int y, int color);
 void line(float x0, float y0, float x1, float y1);
 // minimap_utils
+int input_ok(int tireX, int tireY);
 void flood_tire(void);
 // minimap
 void draw_tire(int x, int y);
 void draw_wall(int x, int y);
 void draw_minimap(int x, int y);
+void re_draw(void);
 // clear
 void ft_clear(void);
 void ft_error(char *s);
