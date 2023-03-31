@@ -62,38 +62,31 @@ int input_ok(int tireX, int tireY)
 
 void fill_zone(int tireX, int tireY, int imgPosX, int imgPosY)
 {
-  int tire_w;
-  int tire_h;
+  int tireSz;
   char **map;
 
-  tire_w = mstr.map.tire_w;
-  tire_h = mstr.map.tire_h;
+  tireSz = mstr.map.tireSz;
   map = mstr.map.tmp;
-  // printf("map[%i][%i] is %c\n", tireY, tireX, map[tireY][tireX]);
-  if (!input_ok(tireX, tireY))
+  if (!input_ok(tireX, tireY) || imgPosX < 0 || imgPosY < 0)
     return;
   if (map[tireY][tireX] == '2')
     return;
   if (map[tireY][tireX] == '1')
-  {
-    if (tireX == 7 && tireY == 6)
-      printf("ooo\n");
     draw_wall(imgPosX, imgPosY);
-  }
   map[tireY][tireX] = '2';
   draw_tire(imgPosX, imgPosY);
   // left
   if (input_ok(tireX - 1, tireY) && map[tireY][tireX - 1] != '2')
-    fill_zone(tireX - 1, tireY, imgPosX - tire_w, imgPosY);
+    fill_zone(tireX - 1, tireY, imgPosX - tireSz, imgPosY);
   // right
   if (input_ok(tireX + 1, tireY) && map[tireY][tireX + 1] != '2')
-    fill_zone(tireX + 1, tireY, imgPosX + tire_w, imgPosY);
+    fill_zone(tireX + 1, tireY, imgPosX + tireSz, imgPosY);
   // top
   if (input_ok(tireX, tireY - 1) && map[tireY - 1][tireX] != '2')
-    fill_zone(tireX, tireY - 1, imgPosX, imgPosY - tire_h);
+    fill_zone(tireX, tireY - 1, imgPosX, imgPosY - tireSz);
   // down
   if (input_ok(tireX, tireY + 1) && map[tireY + 1][tireX] != '2')
-    fill_zone(tireX, tireY + 1, imgPosX, imgPosY + tire_h);
+    fill_zone(tireX, tireY + 1, imgPosX, imgPosY + tireSz);
 }
 
 void flood_tire(void)

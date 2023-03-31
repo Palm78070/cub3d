@@ -14,23 +14,24 @@
 
 void draw_tire(int x, int y)
 {
- int tire_w;
- int tire_h;
+ int tireSz;
 
- tire_w = mstr.map.tire_w;
- tire_h = mstr.map.tire_h;
- line(x, y, x, y + tire_h);
- line(x, y, x + tire_w, y);
- x += tire_w;
- line(x, y, x, y + tire_h);
- y += tire_h;
- line(x, y, x - tire_w, y);
+ tireSz = mstr.map.tireSz;
+ line(x, y, x, y + tireSz);
+ line(x, y, x + tireSz, y);
+ x += tireSz;
+ line(x, y, x, y + tireSz);
+ y += tireSz;
+ line(x, y, x - tireSz, y);
 }
 
 void draw_wall(int x, int y)
 {
- line(x, y, x + 30, y + 30);
- line(x + 30, y, x, y + 30);
+ int tireSz;
+
+ tireSz = mstr.map.tireSz;
+ line(x, y, x + tireSz, y + tireSz);
+ line(x + tireSz, y, x, y + tireSz);
  mlx_put_image_to_window(&mstr, mstr.mlx.win, mstr.mlx.img_ptr, x, y);
 }
 
@@ -81,9 +82,9 @@ void draw_minimap(int x, int y)
 				if (!mstr.mnMp.img)
 					ft_error("Failed to create player icon in minimap\n");
 			}
-			x += mstr.map.tire_w;
+			x += mstr.map.tireSz;
 		}
-		y += mstr.map.tire_h;
+		y += mstr.map.tireSz;
  }
  flood_tire();
  // line(0, 0, 400, 400);
