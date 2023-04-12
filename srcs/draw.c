@@ -29,7 +29,7 @@ void line(float x0, float y0, float x1, float y1)
  Yinc = dn(y0, y1) / (float)step;
  while (step-- >= 0)
  {
-  ft_pixel_put(x0, y0, 0xFFFFFF);
+  ft_pixel_put(x0, y0, mstr.color);
   x0 += Xinc;
   y0 += Yinc;
  }

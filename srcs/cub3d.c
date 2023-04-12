@@ -52,7 +52,6 @@ int main(int argc, char **argv)
 		// init all about mlx
 		mlx_setup();
 		draw_minimap(0, 0);
-		// raycast();
 		mlx_hook(mstr.mlx.win, 2, 1L << 0, &handle_key, &mstr);
 		mlx_hook(mstr.mlx.win, 17, 0L, &handle_cross, &mstr);
 		mlx_loop(mstr.mlx.ptr);

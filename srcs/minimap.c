@@ -89,6 +89,9 @@ void draw_minimap(int x, int y)
  flood_tire();
  // line(0, 0, 400, 400);
  // line(400, 0, 0, 400);
+ // line(mstr.vec.posX, mstr.vec.posY, mstr.vec.posX, mstr.vec.posY - 100);
+ // raycast(mstr.vec.tireX, mstr.vec.tireY);
+ raycast2();
  mlx_put_image_to_window(&mstr, mstr.mlx.win, mstr.mlx.img_ptr, 0, 0);
  mlx_put_image_to_window(&mstr, mstr.mlx.win, mstr.mnMp.img,
 																									mstr.vec.img_posX, mstr.vec.img_posY);

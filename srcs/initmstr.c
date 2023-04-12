@@ -24,6 +24,7 @@ int initmstr(t_cub3d *mstr)
  mstr->map.mapW = 0;
  mstr->map.mapH = 0;
  mstr->map.tireSz = 30;
+ mstr->color = 0xFFFFFF;
  mstr->mnMp.rl_path = "./img/red_dot_30.xpm";
  mstr->vec.tireX = -1;
  mstr->vec.tireY = -1;
@@ -31,10 +32,10 @@ int initmstr(t_cub3d *mstr)
  mstr->vec.img_posY = (mstr->map.sc_h / 2) - mstr->map.tireSz / 2;
  mstr->vec.posX = (mstr->map.sc_w / 2);
  mstr->vec.posY = (mstr->map.sc_h / 2);
- mstr->vec.dirX = -1;
- mstr->vec.dirY = 0;
- mstr->vec.planeX = 0;
- mstr->vec.planeY = 0.66; // FOV is 2*atan(0.66/1.0) = 66
+ mstr->vec.dirX = 0;
+ mstr->vec.dirY = -1;
+ mstr->vec.planeX = 0.66;
+ mstr->vec.planeY = 0; // FOV is 2*atan(0.66/1.0) = 66
 
  return (0);
 }

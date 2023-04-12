@@ -21,6 +21,8 @@
 #include <math.h>
 #include <stdio.h>
 
+#define FLT_MIN 1.175494351e-38F
+#define FLT_MAX 3.402823466e+38F
 typedef struct s_mapinfo
 {
     char *no;
@@ -81,6 +83,7 @@ typedef struct s_vector
     float deltaDstX;
     float deltaDstY;
     float ppWallDst;
+    float lenDirVec;
 } t_vector;
 
 // typedef struct s_tire
@@ -91,6 +94,7 @@ typedef struct s_vector
 
 typedef struct s_cub3d
 {
+    int color;
     t_mlx mlx;
     char **mapfile;
     t_list **tmpmap;
@@ -136,7 +140,8 @@ void draw_wall(int x, int y);
 void draw_minimap(int x, int y);
 void re_draw(void);
 // raycasting
-void raycast(void);
+void raycast(int tireX, int tireY);
+void raycast2(void);
 // clear
 void ft_clear(void);
 void ft_error(char *s);
