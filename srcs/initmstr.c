@@ -21,6 +21,7 @@ int initmstr(t_cub3d *mstr)
  mstr->map.tmp = NULL;
  mstr->map.sc_w = 400;
  mstr->map.sc_h = 400;
+ mstr->vec.isX = -1;
  mstr->map.mapW = 0;
  mstr->map.mapH = 0;
  mstr->map.tireSz = 30;

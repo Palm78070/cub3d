@@ -67,6 +67,9 @@ typedef struct s_vector
     int img_posY;
     int stepX;
     int stepY;
+    int isX;
+    int mapX; // represent the current square of the map the ray is in
+    int mapY; // represent the current square of the map the ray is in
     float posX;
     float posY;
     float dirX;
@@ -76,8 +79,8 @@ typedef struct s_vector
     float camX;
     float rayDirX;
     float rayDirY;
-    int mapX;       // represent the current square of the map the ray is in
-    int mapY;       // represent the current square of the map the ray is in
+    float lmtX;
+    float lmtY;
     float sideDstX; // distance tha ray has to travel from its start pos to first x-side and first y-side
     float sideDstY; // distance tha ray has to travel from its start pos to first x-side and first y-side
     float deltaDstX;
