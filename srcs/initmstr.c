@@ -37,7 +37,8 @@ int initmstr(t_cub3d *mstr)
  mstr->vec.dirY = -1;
  mstr->vec.planeX = 0.66;
  mstr->vec.planeY = 0; // FOV is 2*atan(0.66/1.0) = 66
-
+ mstr->vec.oldLmtX = -1;
+ mstr->vec.lmtX = INFINITY;
  return (0);
 }
 

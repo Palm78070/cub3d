@@ -93,8 +93,8 @@ void draw_minimap(int x, int y)
  // raycast(mstr.vec.tireX, mstr.vec.tireY);
  raycast2();
  mlx_put_image_to_window(&mstr, mstr.mlx.win, mstr.mlx.img_ptr, 0, 0);
- // mlx_put_image_to_window(&mstr, mstr.mlx.win, mstr.mnMp.img,
- // 																								mstr.vec.img_posX, mstr.vec.img_posY);
+ mlx_put_image_to_window(&mstr, mstr.mlx.win, mstr.mnMp.img,
+																									mstr.vec.img_posX, mstr.vec.img_posY);
 }
 
 void re_draw(void)

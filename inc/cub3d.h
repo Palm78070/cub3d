@@ -70,6 +70,7 @@ typedef struct s_vector
     int isX;
     int mapX; // represent the current square of the map the ray is in
     int mapY; // represent the current square of the map the ray is in
+    int rayN;
     float posX;
     float posY;
     float dirX;
@@ -85,8 +86,9 @@ typedef struct s_vector
     float sideDstY; // distance tha ray has to travel from its start pos to first x-side and first y-side
     float deltaDstX;
     float deltaDstY;
-    float ppWallDst;
     float lenDirVec;
+    float ppwd;
+    float oldLmtX;
 } t_vector;
 
 // typedef struct s_tire
@@ -143,7 +145,7 @@ void draw_wall(int x, int y);
 void draw_minimap(int x, int y);
 void re_draw(void);
 // raycasting
-void raycast(int tireX, int tireY);
+void raycast(int tireX, int tireY, float n);
 void raycast2(void);
 // clear
 void ft_clear(void);
