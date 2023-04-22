@@ -88,15 +88,14 @@ typedef struct s_vector
     float deltaDstY;
     float lenDirVec;
     float ppwd;
-    float oldLmtX;
 } t_vector;
 
-// typedef struct s_tire
-// {
-//     int x;
-//     int y;
-// } t_tire;
-
+typedef struct s_rotate
+{
+    float rad;
+    float rdx;
+    float rdy;
+} t_rotate;
 typedef struct s_cub3d
 {
     int color;
@@ -106,6 +105,7 @@ typedef struct s_cub3d
     t_mapinfo map;
     t_minimap mnMp;
     t_vector vec;
+    t_rotate rot;
 } t_cub3d;
 
 extern t_cub3d mstr;

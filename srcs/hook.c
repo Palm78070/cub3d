@@ -24,6 +24,24 @@ int handle_key(int key_code)
         ft_walk(mstr.vec.tireX + 1, mstr.vec.tireY); // right
     else if (key_code == 1)
         ft_walk(mstr.vec.tireX, mstr.vec.tireY + 1); // down
+    else if (key_code == 123)
+    {
+        printf("rotate left\n");
+        mstr.rot.rad -= 0.1;
+        if (mstr.rot.rad < 0)
+            mstr.rot.rad += (2 * M_PI);
+        mstr.rot.rdx = cos(mstr.rot.rad);
+        mstr.rot.rdy = sin(mstr.rot.rad);
+    }
+    else if (key_code == 124)
+    {
+        printf("rotate right\n");
+        mstr.rot.rad += 0.1;
+        if (mstr.rot.rad > (2 * M_PI))
+            mstr.rot.rad -= (2 * M_PI);
+        mstr.rot.rdx = cos(mstr.rot.rad);
+        mstr.rot.rdy = sin(mstr.rot.rad);
+    }
     printf("player current tire (x:%i, y:%i)\n", mstr.vec.tireX, mstr.vec.tireY);
     return (0);
 }

@@ -48,7 +48,7 @@ void drawRay(int dstX, int dstY, int tireX, int tireY)
   endX = (posX + (mstr.vec.rayDirX * dstX));
   endY = (posY + (mstr.vec.rayDirY * dstY));
   printf("ZZZendX : %f endY: %f\n", endX, endY);
-  line(posX, posY, endX, endY);
+  line(posX, posY, endX * mstr.rot.rdx, endY * mstr.rot.rdy);
   ///////////////////////////////
   (void)tireX;
   (void)tireY;
@@ -76,9 +76,6 @@ void drawRay(int dstX, int dstY, int tireX, int tireY)
   //   find_limit_pos(tireX, tireY);
   //   mstr.color = 0xFF0000;
   //   printf("lmtX %f\n", mstr.vec.lmtX);
-  //   printf("oldLmtX %f\n", mstr.vec.oldLmtX);
-  //   printf("diff %f\n", ((mstr.vec.lmtX - mstr.vec.oldLmtX) / 2));
-  //   line(posX, posY, mstr.vec.oldLmtX + ((mstr.vec.lmtX - mstr.vec.oldLmtX) / 2), endY);
   //   mstr.color = 0xFFFFFF;
   // }
   if (mstr.vec.isX)
@@ -88,14 +85,13 @@ void drawRay(int dstX, int dstY, int tireX, int tireY)
   printf("ppwd is %f\n", mstr.vec.ppwd);
   mstr.color = 0x90EE90;
   printf("lmtX %f\n", mstr.vec.lmtX);
-  line(mstr.vec.lmtX, mstr.vec.posY, mstr.vec.lmtX, mstr.vec.posY + (mstr.vec.dirY * mstr.vec.ppwd));
-  line(mstr.vec.lmtX, mstr.vec.posY, mstr.vec.posX, mstr.vec.posY);
+  // line(mstr.vec.lmtX, mstr.vec.posY, mstr.vec.lmtX, mstr.vec.posY + (mstr.vec.dirY * mstr.vec.ppwd));
+  // line(mstr.vec.lmtX, mstr.vec.posY, mstr.vec.posX, mstr.vec.posY);
   printf("my ppwd is %f\n", fabs(mstr.vec.lmtY - mstr.vec.posY));
   mstr.color = 0xFFFFFF;
   printf("Last lmtX %f\n", mstr.vec.lmtX);
   printf("Last lmtY %f\n", mstr.vec.lmtY);
   printf("Diff lmtX and endX %f\n", fabs(mstr.vec.lmtX - endX));
-  // mstr.vec.oldLmtX = mstr.vec.lmtX;
 }
 
 void raycast(int tireX, int tireY, float n)
@@ -277,13 +273,13 @@ void raycast2(void)
   w = 9;
   // w = 19;
   // w = 11;
-  mstr.vec.camX = 0;
-  mstr.vec.rayDirX = mstr.vec.dirX + (mstr.vec.planeX * mstr.vec.camX);
-  mstr.vec.rayDirY = mstr.vec.dirY + (mstr.vec.planeY * mstr.vec.camX);
-  printf("\nray middle \n\n");
-  mstr.color = 0xADD8E6;
-  raycast(mstr.vec.tireX, mstr.vec.tireY, 1);
-  mstr.color = 0xFFFFFF;
+  // mstr.vec.camX = 0;
+  // mstr.vec.rayDirX = mstr.vec.dirX + (mstr.vec.planeX * mstr.vec.camX);
+  // mstr.vec.rayDirY = mstr.vec.dirY + (mstr.vec.planeY * mstr.vec.camX);
+  // printf("\nray middle \n\n");
+  // mstr.color = 0xADD8E6;
+  // raycast(mstr.vec.tireX, mstr.vec.tireY, 1);
+  // mstr.color = 0xFFFFFF;
   while (x < w)
   {
     mstr.vec.rayN = x;
@@ -299,18 +295,20 @@ void raycast2(void)
     // if (x == 2)
     // if (x == 0 || x == 1 || x == 2)
     // if (x == 3 || x == 4 || x == 5 || x == 6)
-    // if (x == 4 || x == 5)
-    raycast(mstr.vec.tireX, mstr.vec.tireY, 1);
+    if (x == 4)
+      raycast(mstr.vec.tireX, mstr.vec.tireY, 1);
     ++x;
   }
   mstr.vec.rayN = x;
   printf("\nray %i\n\n", x + 1);
   mstr.vec.camX = 1;
-  mstr.vec.rayDirX = mstr.vec.dirX + (mstr.vec.planeX * mstr.vec.camX);
-  mstr.vec.rayDirY = mstr.vec.dirY + (mstr.vec.planeY * mstr.vec.camX);
-  raycast(mstr.vec.tireX, mstr.vec.tireY, 1);
+  // mstr.vec.rayDirX = mstr.vec.dirX + (mstr.vec.planeX * mstr.vec.camX);
+  // mstr.vec.rayDirY = mstr.vec.dirY + (mstr.vec.planeY * mstr.vec.camX);
+  // raycast(mstr.vec.tireX, mstr.vec.tireY, 1);
   mstr.vec.isX = -1;
   mstr.vec.rayN = -1;
   // printf("Floating %f\n", 0.5555);
   // printf("Test floating point %f\n", 0.5555 * 10);
+  printf("rdx %f\n", mstr.rot.rdx);
+  printf("rdy %f\n", mstr.rot.rdy);
 }
