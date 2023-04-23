@@ -63,6 +63,8 @@ typedef struct s_vector
 {
     int tireX;
     int tireY;
+    int hitX;
+    int hitY;
     int img_posX;
     int img_posY;
     int stepX;
@@ -71,6 +73,7 @@ typedef struct s_vector
     int mapX; // represent the current square of the map the ray is in
     int mapY; // represent the current square of the map the ray is in
     int rayN;
+    float dummy;
     float posX;
     float posY;
     float dirX;

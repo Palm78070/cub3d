@@ -41,6 +41,7 @@ int initmstr(t_cub3d *mstr)
  mstr->rot.rad = 0;
  mstr->rot.rdx = 1;
  mstr->rot.rdy = 1;
+ mstr->vec.dummy = 1;
  return (0);
 }
 

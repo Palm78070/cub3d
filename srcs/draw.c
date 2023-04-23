@@ -54,11 +54,18 @@ void line(float x0, float y0, float x1, float y1)
     y0 += Yinc;
     if (mstr.vec.lmtX != INFINITY && isLimit(x0, y0))
     {
-      printf("last x %f\n", x0 - Xinc);
-      mstr.vec.lmtX = x0 -= Xinc;
-      // mstr.color = 0x90EE90;
-      // line(x0, mstr.vec.lmtY, x0, mstr.vec.posY);
-      // mstr.color = 0xFFFFFF;
+      if (mstr.vec.isX)
+        printf("hit side x\n");
+      else
+        printf("hit side y\n");
+      // printf("last x %f\n", x0 - Xinc);
+      printf("last x %f\n", x0);
+      printf("last y %f\n", y0);
+      // mstr.vec.lmtX = x0 -= Xinc;
+      //  mstr.vec.lmtY = y0 -= Yinc;
+      //  mstr.color = 0x90EE90;
+      //  line(x0, mstr.vec.lmtY, x0, mstr.vec.posY);
+      //  mstr.color = 0xFFFFFF;
       break;
     }
   }
