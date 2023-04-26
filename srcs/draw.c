@@ -69,4 +69,6 @@ void line(float x0, float y0, float x1, float y1)
       break;
     }
   }
+  mstr.vec.lmtX = x0;
+  mstr.vec.lmtY = y0;
 }
