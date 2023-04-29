@@ -148,7 +148,7 @@ void draw_wall(int x, int y);
 void draw_minimap(int x, int y);
 void re_draw(void);
 // raycasting
-void raycast(int tireX, int tireY, float n);
+void raycast(float tireX, float tireY, float n);
 void raycast2(void);
 // clear
 void ft_clear(void);
