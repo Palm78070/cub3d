@@ -36,10 +36,10 @@ void find_hitW(int endX, int endY)
   printf("\n\nnew hitX %i\n\n", mstr.vec.hitX);
 }
 
-void drawRay(int dstX, int dstY, int tireX, int tireY)
+void drawRay(float dstX, float dstY, int tireX, int tireY)
 {
-  printf("end dstY %i\n", dstY);
-  printf("end dstX %i\n", dstX);
+  printf("end dstY %f\n", dstY);
+  printf("end dstX %f\n", dstX);
   float endX;
   float endY;
   float posY;
@@ -64,6 +64,9 @@ void drawRay(int dstX, int dstY, int tireX, int tireY)
   // }
   // else
   line(posX, posY, endX, endY);
+  if (mstr.vec.camX == 0)
+    line(posX, posY, posX, posY + (mstr.vec.rayDirY * 30));
+  // line(posX, posY, dstX, dstY);
   ///////////////////////////////
   (void)tireX;
   (void)tireY;
@@ -103,10 +106,10 @@ void raycast(float tireX, float tireY, float n)
   printf("posX:%f posY:%f\n", posX, posY);
   printf("posX:%i posY:%i\n", (int)posX, (int)posY);
   ////////////////////////////
+  // mstr.vec.deltaDstX = sqrt(pow(30, 2) + (pow(mstr.vec.rayDirY, 2) / pow(mstr.vec.rayDirX, 2)));
+  // mstr.vec.deltaDstY = sqrt(pow(30, 2) + (pow(mstr.vec.rayDirX, 2) / pow(mstr.vec.rayDirY, 2)));
   mstr.vec.deltaDstX = sqrt(1 + (pow(mstr.vec.rayDirY, 2) / pow(mstr.vec.rayDirX, 2)));
   mstr.vec.deltaDstY = sqrt(1 + (pow(mstr.vec.rayDirX, 2) / pow(mstr.vec.rayDirY, 2)));
-  // mstr.vec.deltaDstX = sqrt(1 + (pow(mstr.vec.rayDirY, 2) / pow(mstr.vec.rayDirX, 2)));
-  // mstr.vec.deltaDstY = sqrt(1 + (pow(mstr.vec.rayDirX, 2) / pow(mstr.vec.rayDirY, 2)));
   ////////////////////////////
   // float sideDstX2;
   // float sideDstY2;
@@ -126,7 +129,7 @@ void raycast(float tireX, float tireY, float n)
     // mstr.vec.sideDstX = (0.5 * mstr.vec.deltaDstX);
     // sideDstX2 = (int)((mstr.map.tireSz / 2) * deltaDstX2);
     // mstr.vec.sideDstX = (mstr.vec.posX - mstr.vec.tireX) * mstr.vec.deltaDstX;
-    mstr.vec.sideDstX = fabs(posX - mstr.vec.tireX) * mstr.vec.deltaDstX;
+    mstr.vec.sideDstX = (posX - mstr.vec.tireX) * mstr.vec.deltaDstX;
     printf("sideDstX %f\n", mstr.vec.sideDstX);
     // printf("sideDstX2 %f\n", sideDstX2);
   }
@@ -139,7 +142,7 @@ void raycast(float tireX, float tireY, float n)
     // mstr.vec.sideDstX = (0.5 * mstr.vec.deltaDstX);
     // sideDstX2 = (int)((mstr.map.tireSz / 2) * deltaDstX2);
     // mstr.vec.sideDstX = (mstr.vec.tireX + 1.0 - mstr.vec.posX) * mstr.vec.deltaDstX;
-    mstr.vec.sideDstX = fabs(mstr.vec.tireX + 1.0 - posX) * mstr.vec.deltaDstX;
+    mstr.vec.sideDstX = (mstr.vec.tireX + 1.0 - posX) * mstr.vec.deltaDstX;
     printf("sideDstX %f\n", mstr.vec.sideDstX);
     // printf("sideDstX2 %f\n", sideDstX2);
   }
@@ -152,7 +155,7 @@ void raycast(float tireX, float tireY, float n)
     // mstr.vec.sideDstY = (0.5 * mstr.vec.deltaDstY);
     // sideDstY2 = (int)((mstr.map.tireSz / 2) * deltaDstY2);
     // mstr.vec.sideDstY = (mstr.vec.posY - mstr.vec.tireY) * mstr.vec.deltaDstY;
-    mstr.vec.sideDstY = fabs(posY - mstr.vec.tireY) * mstr.vec.deltaDstY;
+    mstr.vec.sideDstY = (posY - mstr.vec.tireY) * mstr.vec.deltaDstY;
     printf("sideDstY %f\n", mstr.vec.sideDstY);
     // printf("sideDstY2 %f\n", sideDstY2);
   }
@@ -164,15 +167,15 @@ void raycast(float tireX, float tireY, float n)
     // mstr.vec.sideDstY = (int)((mstr.map.tireSz) * mstr.vec.deltaDstY);
     // mstr.vec.sideDstY = (0.5 * mstr.vec.deltaDstY);
     // sideDstY2 = (int)((mstr.map.tireSz / 2) * deltaDstY2);
-    mstr.vec.sideDstY = fabs(mstr.vec.tireY + 1.0 - posY) * mstr.vec.deltaDstY;
+    mstr.vec.sideDstY = (mstr.vec.tireY + 1.0 - posY) * mstr.vec.deltaDstY;
     printf("sideDstY %f\n", mstr.vec.sideDstY);
     // printf("sideDstY2 %f\n", sideDstY2);
   }
   /////////////////////
-  if (mstr.vec.sideDstX < 0)
-    mstr.vec.sideDstX = MAXFLOAT;
-  if (mstr.vec.sideDstY < 0)
-    mstr.vec.sideDstY = MAXFLOAT;
+  // if (mstr.vec.sideDstX < 0)
+  //   mstr.vec.sideDstX = MAXFLOAT;
+  // if (mstr.vec.sideDstY < 0)
+  //   mstr.vec.sideDstY = MAXFLOAT;
   /////////////////////
   // (void)n;
   // mstr.vec.deltaDstX = sqrt(1 + (pow(mstr.vec.rayDirY, 2) / pow(mstr.vec.rayDirX, 2)));
@@ -201,7 +204,8 @@ void raycast(float tireX, float tireY, float n)
       tireX += mstr.vec.stepX * 0.5;
       dstX = mstr.vec.sideDstX;
       // mstr.vec.sideDstX += (mstr.map.tireSz * mstr.vec.deltaDstX);
-      mstr.vec.sideDstX += mstr.vec.deltaDstX;
+      // mstr.vec.sideDstX += (mstr.vec.deltaDstX * 30);
+      mstr.vec.sideDstX += (mstr.vec.deltaDstX);
       // printf("Choose sideX2 sideX2:%f < sideY2: %f\n", sideDstX2, sideDstY2);
       // dstX2 = sideDstX2;
       // sideDstX2 += deltaDstX2;
@@ -214,68 +218,31 @@ void raycast(float tireX, float tireY, float n)
       tireY += mstr.vec.stepY * 0.5;
       dstY = mstr.vec.sideDstY;
       // mstr.vec.sideDstY += (mstr.map.tireSz * mstr.vec.deltaDstY);
-      mstr.vec.sideDstY += mstr.vec.deltaDstY;
+      // mstr.vec.sideDstY += (mstr.vec.deltaDstY * 30);
+      mstr.vec.sideDstY += (mstr.vec.deltaDstY);
       // printf("Choose sideY2 sideY2:%f < sideX2: %f\n", sideDstY2, sideDstX2);
       // dstY2 = sideDstY2;
       // sideDstY2 += deltaDstY2;
       printf("map[%f][%f]\n", tireY, tireX);
     }
-    // if (mstr.vec.isX)
-    // {
-    //   mstr.vec.isX = 0;
-    //   printf("Choose sideX sideX:%f < sideY: %f\n", mstr.vec.sideDstX, mstr.vec.sideDstY);
-    //   tireX += mstr.vec.stepX;
-    //   dstX = mstr.vec.sideDstX;
-    //   mstr.vec.sideDstX += (int)(mstr.map.tireSz * mstr.vec.deltaDstX);
-    //   printf("map[%i][%i]\n", tireY, tireX);
-    // }
-    // else
-    // {
-    //   mstr.vec.isX = 1;
-    //   printf("Choose sideY sideY:%f < sideX: %f\n", mstr.vec.sideDstY, mstr.vec.sideDstX);
-    //   tireY += mstr.vec.stepY;
-    //   dstY = mstr.vec.sideDstY;
-    //   mstr.vec.sideDstY += (int)(mstr.map.tireSz * mstr.vec.deltaDstY);
-    //   printf("map[%i][%i]\n", tireY, tireX);
-    // }
     if (input_ok(tireX, tireY))
       if (mstr.map.map[(int)tireY][(int)tireX] == '1')
       {
         printf("hit wall map[%i][%i]\n", (int)tireY, (int)tireX);
         mstr.vec.hitX = tireX;
         mstr.vec.hitY = tireY;
-        // find_limit_pos(tireX, tireY);
+        find_limit_pos(tireX, tireY);
         hitWall = 1;
       }
   }
-  ///////////////////////////////////
-  // mstr.vec.sideDstX -= mstr.map.tireSz;
-  // mstr.vec.sideDstX -= (int)(mstr.map.tireSz * mstr.vec.deltaDstX);
-  // mstr.vec.sideDstY -= (int)(mstr.map.tireSz * mstr.vec.deltaDstY);
-  /////////////////////////////////////
   printf("end sideDstY %f\n", mstr.vec.sideDstY);
   printf("end sideDstX %f\n", mstr.vec.sideDstX);
   printf("end dstY %f\n", dstY);
   printf("end dstX %f\n", dstX);
   ///////////////////////////////////////////////
-  if (hitWall == 1)
-    drawRay(dstX * 30, dstY * 30, tireX, tireY);
-  // drawRay(mstr.vec.sideDstX, mstr.vec.sideDstY, tireX, tireY);
-  // if (hitWall == 1 && mstr.vec.rayN != 3 && mstr.vec.rayN != 4 && mstr.vec.rayN != 5 && mstr.vec.rayN != 6)
-  // {s
-  // mstr.color = 0xFF0000;
-  // drawRay(sideDstX2, sideDstY2, tireX, tireY);
-  // mstr.color = 0xFFFFFF;
-  // }
-  // drawRay(mstr.vec.sideDstX, mstr.vec.sideDstY, tireX, tireY);
-  // if (n > 1 || mstr.vec.camX == 0)
-  // {
-  //   mstr.color = 0xFFFFFF;
-  //   return;
-  // }
-  // printf("\n\n n is %f\n\n", n);
-  // mstr.color = 0xFF0000;
-  // raycast(mstr.vec.tireX, mstr.vec.tireY, n + 1);
+  if (hitWall == 1 && mstr.vec.camX == 0)
+    drawRay(dstX * 30, 30, tireX, tireY);
+  // drawRay(dstX * 30, dstY * 30, tireX, tireY);
 }
 
 void raycast2(void)
@@ -287,18 +254,19 @@ void raycast2(void)
   // w = 9;
   // w = 199;
   w = 399;
-  // mstr.vec.camX = 0;
-  // mstr.vec.rayDirX = mstr.vec.dirX + (mstr.vec.planeX * mstr.vec.camX);
-  // mstr.vec.rayDirY = mstr.vec.dirY + (mstr.vec.planeY * mstr.vec.camX);
+  // w = 2;
+  mstr.vec.camX = 0;
+  mstr.vec.rayDirX = mstr.vec.dirX + (mstr.vec.planeX * mstr.vec.camX);
+  mstr.vec.rayDirY = mstr.vec.dirY + (mstr.vec.planeY * mstr.vec.camX);
   // printf("\nray middle \n\n");
-  // mstr.color = 0xADD8E6;
-  // raycast(mstr.vec.tireX, mstr.vec.tireY, 1);
-  // mstr.color = 0xFFFFFF;
+  mstr.color = 0xADD8E6;
+  raycast(mstr.vec.tireX, mstr.vec.tireY, 1);
+  mstr.color = 0xFFFFFF;
   while (x < w)
   {
 
     mstr.vec.rayN = x;
-    // if (x < 262)
+    // if (x < 20)
     // {
     printf("\nray %i\n\n", x + 1);
     printf("lmtX %f\n", mstr.vec.lmtX);
@@ -312,7 +280,6 @@ void raycast2(void)
     // if (x == 2)
     // if (x == 0 || x == 1 || x == 2)
     // if (x == 3 || x == 4 || x == 5 || x == 6)
-    // if (x == 4)
     raycast(mstr.vec.tireX, mstr.vec.tireY, 1);
     //}
     ++x;
