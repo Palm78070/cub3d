@@ -32,6 +32,7 @@ int handle_key(int key_code)
             mstr.rot.rad += (2 * M_PI);
         mstr.rot.rdx = cos(mstr.rot.rad);
         mstr.rot.rdy = sin(mstr.rot.rad);
+        re_draw();
     }
     else if (key_code == 124)
     {
@@ -41,6 +42,7 @@ int handle_key(int key_code)
             mstr.rot.rad -= (2 * M_PI);
         mstr.rot.rdx = cos(mstr.rot.rad);
         mstr.rot.rdy = sin(mstr.rot.rad);
+        re_draw();
     }
     printf("player current tire (x:%i, y:%i)\n", mstr.vec.tireX, mstr.vec.tireY);
     return (0);
