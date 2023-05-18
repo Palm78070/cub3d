@@ -23,6 +23,14 @@
 
 #define FLT_MIN 1.175494351e-38F
 #define FLT_MAX 3.402823466e+38F
+// #define SC_W 640
+// #define SC_H 480
+#define SC_W 400
+#define SC_H 400
+#define MnMp_W 100
+#define MnMp_H 100
+#define tireSz 30
+#define FOV 0.66
 typedef struct s_mapinfo
 {
     char *no;
@@ -33,11 +41,11 @@ typedef struct s_mapinfo
     char *flor;
     char **map;
     char **tmp;
-    int sc_w;
-    int sc_h;
+    // int sc_w;
+    // int sc_h;
     int mapW;
     int mapH;
-    int tireSz;
+    // int tireSz;
 } t_mapinfo;
 
 typedef struct s_mlx
@@ -59,45 +67,45 @@ typedef struct s_minimap
     int imgH;
 } t_minimap;
 
-typedef struct s_vector
+typedef struct s_point
 {
-    int tireX;
-    int tireY;
-    int hitX;
-    int hitY;
-    int img_posX;
-    int img_posY;
-    int stepX;
-    int stepY;
-    int isX;
-    int mapX; // represent the current square of the map the ray is in
-    int mapY; // represent the current square of the map the ray is in
+    float x;
+    float y;
+    int ix;
+    int iy;
+} t_point;
+typedef struct s_vec
+{
+    float x;
+    float y;
+    int ix;
+    int iy;
+} t_vec;
+
+typedef struct s_ray
+{
+    t_point tire;
+    t_point hit;
+    t_point img_pos;
+    t_point step;
+    t_point lmt;
+    t_vec pos;
+    t_vec dir;
+    t_vec plane;
+    t_vec rayDir;
+    t_vec deltaDst;
+    t_vec sideDst; // distance tha ray has to travel from its start pos to first x-side and first x,y-side
     int rayN;
-    float dummy;
-    float posX;
-    float posY;
-    float dirX;
-    float dirY;
-    float planeX;
-    float planeY;
+    int isX;
     float camX;
-    float rayDirX;
-    float rayDirY;
-    float lmtX;
-    float lmtY;
-    float sideDstX; // distance tha ray has to travel from its start pos to first x-side and first y-side
-    float sideDstY; // distance tha ray has to travel from its start pos to first x-side and first y-side
-    float deltaDstX;
-    float deltaDstY;
-    float lenDirVec;
     float ppwd;
-} t_vector;
+} t_ray;
 
 typedef struct s_rotate
 {
     float rad;
-    float rdx;
-    float rdy;
+    // float rdx;
+    // float rdy;
 } t_rotate;
 typedef struct s_cub3d
 {
@@ -107,7 +115,7 @@ typedef struct s_cub3d
     t_list **tmpmap;
     t_mapinfo map;
     t_minimap mnMp;
-    t_vector vec;
+    t_ray ray;
     t_rotate rot;
 } t_cub3d;
 
@@ -121,6 +129,7 @@ void fileerrhand(int errnum);
 
 // initial main struct
 int initmstr(t_cub3d *mstr);
+void find_player_dir(char c);
 
 // save map into linklist
 int storfile2tlist(char *mapfile, t_list **tmpmap);
@@ -148,7 +157,7 @@ void draw_wall(int x, int y);
 void draw_minimap(int x, int y);
 void re_draw(void);
 // raycasting
-void raycast(float tireX, float tireY, float n);
+void raycast(float tireX, float tireY);
 void raycast2(void);
 // clear
 void ft_clear(void);

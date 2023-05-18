@@ -62,10 +62,8 @@ int input_ok(int tireX, int tireY)
 
 void fill_zone(int tireX, int tireY, int imgPosX, int imgPosY)
 {
-  int tireSz;
   char **map;
 
-  tireSz = mstr.map.tireSz;
   map = mstr.map.tmp;
   if (!input_ok(tireX, tireY) || imgPosX < 0 || imgPosY < 0)
     return;
@@ -94,13 +92,13 @@ void flood_tire(void)
   int tireX;
   int tireY;
 
-  tireX = mstr.vec.tireX;
-  tireY = mstr.vec.tireY;
+  tireX = mstr.ray.tire.ix;
+  tireY = mstr.ray.tire.iy;
   if (mstr.map.tmp == NULL)
     mstr.map.tmp = dup_map();
   else
     re_init_map();
   if (!input_ok(tireX, tireY))
     return;
-  fill_zone(tireX, tireY, mstr.vec.img_posX, mstr.vec.img_posY);
+  fill_zone(tireX, tireY, mstr.ray.img_pos.ix, mstr.ray.img_pos.iy);
 }

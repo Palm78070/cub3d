@@ -19,31 +19,19 @@ int initmstr(t_cub3d *mstr)
 		return (1);
  *(mstr->tmpmap) = NULL;
  mstr->map.tmp = NULL;
- mstr->map.sc_w = 400;
- mstr->map.sc_h = 400;
- // mstr->map.sc_w = 640;
- // mstr->map.sc_h = 480;
- mstr->vec.isX = -1;
+ mstr->ray.isX = -1;
  mstr->map.mapW = 0;
  mstr->map.mapH = 0;
- mstr->map.tireSz = 30;
  mstr->color = 0xFFFFFF;
  mstr->mnMp.rl_path = "./img/red_dot_30.xpm";
- mstr->vec.tireX = -1;
- mstr->vec.tireY = -1;
- mstr->vec.img_posX = (mstr->map.sc_w / 2) - mstr->map.tireSz / 2;
- mstr->vec.img_posY = (mstr->map.sc_h / 2) - mstr->map.tireSz / 2;
- mstr->vec.posX = (mstr->map.sc_w / 2);
- mstr->vec.posY = (mstr->map.sc_h / 2);
- mstr->vec.dirX = 0;
- mstr->vec.dirY = -1;
- mstr->vec.planeX = 0.66;
- mstr->vec.planeY = 0; // FOV is 2*atan(0.66/1.0) = 66
- mstr->vec.lmtX = INFINITY;
+ mstr->ray.tire = (t_point){.ix = -1, .iy = -1};
+ mstr->ray.img_pos = (t_point){.ix = (SC_W / 2) - tireSz / 2,
+																															.iy = (SC_H / 2) - tireSz / 2};
+ mstr->ray.pos = (t_vec){.x = SC_W / 2, .y = SC_H / 2};
+ mstr->ray.dir = (t_vec){.x = 0, .y = -1};
+ mstr->ray.plane = (t_vec){.x = 0.66, .y = 0}; // FOV is 2*atan(0.66/1.0) = 66
+ mstr->ray.lmt = (t_point){.x = INFINITY, .y = INFINITY};
  mstr->rot.rad = 0;
- mstr->rot.rdx = 1;
- mstr->rot.rdy = 1;
- mstr->vec.dummy = 1;
  return (0);
 }
 
@@ -52,9 +40,33 @@ void mlx_setup()
  mstr.mlx.ptr = mlx_init();
  if (!mstr.mlx.ptr)
 		ft_error("Failed to initialise mlx with mlx_init()\n");
- mstr.mlx.win = mlx_new_window(mstr.mlx.ptr, 400, 400, "cub3d");
+ mstr.mlx.win = mlx_new_window(mstr.mlx.ptr, SC_W, SC_H, "cub3d");
  if (!mstr.mlx.win)
 		ft_error("Failed to open mlx_new_window()\n");
- mstr.mlx.img_ptr = mlx_new_image(mstr.mlx.ptr, 400, 400);
+ mstr.mlx.img_ptr = mlx_new_image(mstr.mlx.ptr, SC_W, SC_H);
  mstr.mlx.img_addr = mlx_get_data_addr(mstr.mlx.img_ptr, &mstr.mlx.bpp, &mstr.mlx.size_line, &mstr.mlx.endian);
+}
+
+void find_player_dir(char c)
+{
+ if (c == 'N')
+ {
+		mstr.ray.dir = (t_vec){.x = 0, .y = -1};
+		mstr.ray.plane = (t_vec){.x = 1, .y = 0};
+ }
+ if (c == 'S')
+ {
+		mstr.ray.dir = (t_vec){.x = 0, .y = 1};
+		mstr.ray.plane = (t_vec){.x = -1, .y = 0};
+ }
+ if (c == 'W')
+ {
+		mstr.ray.dir = (t_vec){.x = 1, .y = 0};
+		mstr.ray.plane = (t_vec){.x = 0, .y = -1};
+ }
+ if (c == 'E')
+ {
+		mstr.ray.dir = (t_vec){.x = 1, .y = 0};
+		mstr.ray.plane = (t_vec){.x = 0, .y = 1};
+ }
 }
