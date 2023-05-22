@@ -27,6 +27,7 @@ SRCS = cub3d.c \
 		stormapinfo.c \
 		hook.c \
 		draw.c \
+		draw_tire.c \
 		minimap_utils.c \
 		minimap.c \
 		raycast.c \

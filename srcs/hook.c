@@ -17,13 +17,13 @@ int handle_key(int key_code)
         return (0);
     }
     else if (key_code == 13)
-        ft_walk(mstr.ray.tire.ix, mstr.ray.tire.iy - 1); // up
+        ft_walk(mstr.ray.tire.ix, mstr.ray.tire.iy + mstr.ray.dir.y); // up
     else if (key_code == 0)
         ft_walk(mstr.ray.tire.ix - 1, mstr.ray.tire.iy); // left
     else if (key_code == 2)
         ft_walk(mstr.ray.tire.ix + 1, mstr.ray.tire.iy); // right
     else if (key_code == 1)
-        ft_walk(mstr.ray.tire.ix, mstr.ray.tire.iy + 1); // down
+        ft_walk(mstr.ray.tire.ix, mstr.ray.tire.iy - mstr.ray.dir.y); // down
     else if (key_code == 123)
     {
         printf("rotate left\n");

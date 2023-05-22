@@ -23,13 +23,13 @@
 
 #define FLT_MIN 1.175494351e-38F
 #define FLT_MAX 3.402823466e+38F
-// #define SC_W 640
-// #define SC_H 480
-#define SC_W 400
-#define SC_H 400
-#define MnMp_W 100
-#define MnMp_H 100
-#define tireSz 30
+#define SC_W 640
+#define SC_H 480
+// #define SC_W 400
+// #define SC_H 400
+#define MnMp_W 200
+#define MnMp_H 200
+#define tireSz 20
 #define FOV 0.66
 typedef struct s_mapinfo
 {
@@ -41,11 +41,8 @@ typedef struct s_mapinfo
     char *flor;
     char **map;
     char **tmp;
-    // int sc_w;
-    // int sc_h;
     int mapW;
     int mapH;
-    // int tireSz;
 } t_mapinfo;
 
 typedef struct s_mlx
@@ -65,6 +62,10 @@ typedef struct s_minimap
     char *rl_path;
     int imgW;
     int imgH;
+    int floorX;
+    int floorY;
+    int ceilX;
+    int ceilY;
 } t_minimap;
 
 typedef struct s_point
@@ -81,6 +82,14 @@ typedef struct s_vec
     int ix;
     int iy;
 } t_vec;
+
+typedef struct s_tire
+{
+    int floorX;
+    int floorY;
+    int ceilX;
+    int ceilY;
+} t_tire;
 
 typedef struct s_ray
 {
@@ -147,16 +156,21 @@ int handle_cross(void);
 int handle_walk(int key_code);
 // draw
 void ft_pixel_put(int x, int y, int color);
+int dn(int n0, int n1);
 void line(float x0, float y0, float x1, float y1);
 // minimap_utils
 int input_ok(int tireX, int tireY);
 void flood_tire(void);
+void re_init_map(void);
 // minimap
-void draw_tire(int x, int y);
-void draw_wall(int x, int y);
+void draw_tire(t_point p, int tireX, int tireY);
+void draw_wall(t_point p);
 void draw_minimap(int x, int y);
 void re_draw(void);
-// raycasting
+// draw_tire
+void lineT(t_point p0, t_point p1);
+// void draw_tire2(t_point p, int mode);
+//  raycasting
 void raycast(float tireX, float tireY);
 void raycast2(void);
 // clear

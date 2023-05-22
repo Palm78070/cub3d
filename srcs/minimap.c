@@ -12,23 +12,6 @@
 
 #include "cub3d.h"
 
-void draw_tire(int x, int y)
-{
- line(x, y, x, y + tireSz);
- line(x, y, x + tireSz, y);
- x += tireSz;
- line(x, y, x, y + tireSz);
- y += tireSz;
- line(x, y, x - tireSz, y);
-}
-
-void draw_wall(int x, int y)
-{
- line(x, y, x + tireSz, y + tireSz);
- line(x + tireSz, y, x, y + tireSz);
- mlx_put_image_to_window(&mstr, mstr.mlx.win, mstr.mlx.img_ptr, x, y);
-}
-
 void find_player_pos(void)
 {
  int w;
@@ -54,6 +37,27 @@ void find_player_pos(void)
 			}
 		}
  }
+}
+
+void create_boarder(void)
+{
+ // int startX;
+ // int startY;
+ // int endX;
+ // int endY;
+ t_point start;
+ t_point end;
+
+ start.ix = mstr.mnMp.floorX;
+ start.iy = mstr.mnMp.floorY;
+ end.ix = mstr.mnMp.ceilX;
+ end.iy = mstr.mnMp.ceilY;
+ lineT(start, (t_point){.ix = end.ix, .iy = start.iy});
+ lineT(start, (t_point){.ix = start.ix, .iy = end.iy});
+ mstr.ray.img_pos.ix = start.ix + (MnMp_W / 2) - (mstr.mnMp.imgW / 2);
+ mstr.ray.img_pos.iy = start.iy + (MnMp_H / 2) - (mstr.mnMp.imgH / 2);
+ mstr.ray.pos.x = start.ix + (MnMp_W / 2);
+ mstr.ray.pos.y = start.iy + (MnMp_H / 2);
 }
 
 void draw_minimap(int x, int y)
@@ -82,8 +86,10 @@ void draw_minimap(int x, int y)
 		}
 		y += tireSz;
  }
+ create_boarder();
  flood_tire();
  raycast2();
+ printf("imgW: %i imgH: %i\n", mstr.mnMp.imgW, mstr.mnMp.imgH);
  mlx_put_image_to_window(&mstr, mstr.mlx.win, mstr.mlx.img_ptr, 0, 0);
  mlx_put_image_to_window(&mstr, mstr.mlx.win, mstr.mnMp.img,
 																									mstr.ray.img_pos.ix, mstr.ray.img_pos.iy);
@@ -92,7 +98,7 @@ void draw_minimap(int x, int y)
 void re_draw(void)
 {
  mlx_destroy_image(mstr.mlx.ptr, mstr.mlx.img_ptr);
- mstr.mlx.img_ptr = mlx_new_image(mstr.mlx.ptr, 400, 400);
+ mstr.mlx.img_ptr = mlx_new_image(mstr.mlx.ptr, SC_W, SC_H);
  mstr.mlx.img_addr = mlx_get_data_addr(mstr.mlx.img_ptr, &mstr.mlx.bpp, &mstr.mlx.size_line, &mstr.mlx.endian);
  draw_minimap(0, 0);
 }

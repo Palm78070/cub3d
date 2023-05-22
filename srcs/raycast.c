@@ -36,14 +36,13 @@ void find_hitW(int endX, int endY)
 
 t_vec rotate(t_vec v)
 {
-  printf("rad %f\n", mstr.rot.rad);
-  printf("Before vectX: %f vectY: %f ", v.x, v.y);
+  printf("Before Rotate v.x: %f v.y: %f\n", v.x, v.y);
   float old_x;
 
   old_x = v.x;
   v.x = (v.x * cosf(mstr.rot.rad)) - (v.y * sinf(mstr.rot.rad));
   v.y = ((old_x * sinf(mstr.rot.rad)) + (v.y * cosf(mstr.rot.rad)));
-  printf("After vectX: %f vectY: %f ", v.x, v.y);
+  printf("After Rotate v.x: %f v.y: %f\n", v.x, v.y);
   return (v);
 }
 
@@ -60,10 +59,15 @@ void drawRay(float dstX, float dstY, int tireX, int tireY)
 
   posY = mstr.ray.pos.y;
   posX = mstr.ray.pos.x;
-  dstX = (posX + (mstr.ray.rayDir.x * tireSz));
-  dstY = (posX + (mstr.ray.rayDir.y * tireSz));
+  dstX = (posX + (mstr.ray.dir.x * tireSz));
+  dstY = (posY + (mstr.ray.dir.y * tireSz));
   if (mstr.ray.camX == 0)
     line(posX, posY, dstX, dstY);
+  printf("\ndirX %f\n", mstr.ray.dir.x);
+  printf("\nsideDstX %f\n", mstr.ray.sideDst.x);
+  float hitX = (posX + (mstr.ray.dir.x * mstr.ray.sideDst.x * 200));
+  float hitY = (posY + (mstr.ray.dir.y * mstr.ray.sideDst.y * 200));
+  printf("\n\nhitX: %f hitY: %f\n\n", hitX, hitY);
 }
 
 void raycast(float tireX, float tireY)
@@ -148,10 +152,7 @@ void raycast(float tireX, float tireY)
     if (input_ok(tireX, tireY))
       if (mstr.map.map[(int)tireY][(int)tireX] == '1')
       {
-        // printf("tireY: %f tireX: %f\n", tireY, tireX);
-        // printf("(int)tireY: %i (int)tireX: %i\n", (int)floor(tireY), (int)floor(tireX));
-        if (mstr.ray.camX == 0)
-          printf("hit wall map[%i][%i] ", (int)tireY, (int)tireX);
+        //   printf("hit wall map[%i][%i] ", (int)tireY, (int)tireX);
         mstr.ray.hit.ix = tireX;
         mstr.ray.hit.iy = tireY;
         find_limit_pos(tireX, tireY);
@@ -167,6 +168,7 @@ void raycast(float tireX, float tireY)
     drawRay(0, 0, tireX, tireY);
   if (hitWall)
   {
+    // printf("hit wall map[%i][%i] ", (int)tireY, (int)tireX);
     if (mstr.ray.isX)
       mstr.ray.ppwd = (mstr.ray.sideDst.x - mstr.ray.deltaDst.x);
     else
@@ -178,46 +180,37 @@ void raycast(float tireX, float tireY)
 void raycast2(void)
 {
   int x;
-  int w;
 
   x = 0;
-  // w = 9;
-  // w = 199;
-  w = 399;
-  // w = 2;
   mstr.ray.camX = 0;
   printf("//////plane rotate/////\n");
   mstr.ray.plane = rotate(mstr.ray.plane);
   printf("\n/////dir rotate/////\n");
   mstr.ray.dir = rotate(mstr.ray.dir);
   printf("\n\n");
-  mstr.ray.rayDir.x = mstr.ray.dir.x + (mstr.ray.plane.x * mstr.ray.camX);
-  mstr.ray.rayDir.y = mstr.ray.dir.y + (mstr.ray.plane.y * mstr.ray.camX);
-  // printf("\nray middle \n\n");
-  mstr.color = 0xADD8E6;
-  raycast(mstr.ray.tire.ix, mstr.ray.tire.iy);
-  mstr.color = 0xFFFFFF;
-  while (x < w)
+  while (x < SC_W)
   {
-
     mstr.ray.rayN = x;
-    // printf("\nray %i\n\n", x + 1);
-    //  printf("lmtX %f\n", mstr.ray.lmtX);
-    //  printf("map[%i][%i]\n", mstr.ray.tireY, mstr.ray.tireX);
-    mstr.ray.camX = ((2 * x) / (float)w) - 1;
+    mstr.ray.camX = ((2 * x) / (float)SC_W) - 1;
+    mstr.ray.rayDir.x = mstr.ray.dir.x + (mstr.ray.plane.x * FOV * mstr.ray.camX);
     mstr.ray.rayDir.y = mstr.ray.dir.y + (mstr.ray.plane.y * FOV * mstr.ray.camX);
     raycast(mstr.ray.tire.ix, mstr.ray.tire.iy);
     ++x;
   }
-  mstr.ray.rayN = x;
-  // printf("\nray %i\n\n", x + 1);
-  mstr.ray.camX = 1;
-  // mstr.ray.rayDirX = mstr.ray.dirX + (mstr.ray.planeX * mstr.ray.camX);
-  // mstr.ray.rayDirY = mstr.ray.dirY + (mstr.ray.planeY * mstr.ray.camX);
-  // raycast(mstr.ray.tireX, mstr.ray.tireY, 1);
+  // mstr.ray.rayN = x;
+  //  printf("\nray %i\n\n", x + 1);
+  // mstr.ray.camX = 1;
+  //  mstr.ray.rayDirX = mstr.ray.dirX + (mstr.ray.planeX * mstr.ray.camX);
+  //  mstr.ray.rayDirY = mstr.ray.dirY + (mstr.ray.planeY * mstr.ray.camX);
+  //  raycast(mstr.ray.tireX, mstr.ray.tireY, 1);
   mstr.ray.isX = -1;
   mstr.ray.rayN = -1;
+
   printf("rad %f\n", mstr.rot.rad);
+  printf("player posX: %f posY: %f\n", mstr.ray.pos.x, mstr.ray.pos.y);
+  // mstr.color = 0xFF0000;
+  // line(mstr.ray.pos.x, mstr.ray.pos.y, mstr.ray.pos.x, mstr.ray.pos.y - tireSz);
+  // mstr.color = 0xFFFFFF;
   // printf("rdx %f\n", mstr.rot.rdx);
   // printf("rdy %f\n", mstr.rot.rdy);
 }
