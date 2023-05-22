@@ -25,8 +25,6 @@
 #define FLT_MAX 3.402823466e+38F
 #define SC_W 640
 #define SC_H 480
-// #define SC_W 400
-// #define SC_H 400
 #define MnMp_W 200
 #define MnMp_H 200
 #define tireSz 20
@@ -82,14 +80,6 @@ typedef struct s_vec
     int ix;
     int iy;
 } t_vec;
-
-typedef struct s_tire
-{
-    int floorX;
-    int floorY;
-    int ceilX;
-    int ceilY;
-} t_tire;
 
 typedef struct s_ray
 {
