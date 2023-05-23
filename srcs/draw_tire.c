@@ -4,7 +4,7 @@ int isOutSide(t_point p)
 {
  int isOutSide;
 
- isOutSide = (p.ix < mstr.mnMp.floorX || p.ix > mstr.mnMp.ceilX || p.iy < mstr.mnMp.floorY || p.iy > mstr.mnMp.ceilY);
+ isOutSide = (p.ix < mstr.mnMp.floor.ix || p.ix > mstr.mnMp.ceil.ix || p.iy < mstr.mnMp.floor.iy || p.iy > mstr.mnMp.ceil.iy);
  return (p.ix < 0 || p.iy < 0 || isOutSide);
 }
 

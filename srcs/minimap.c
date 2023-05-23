@@ -41,23 +41,21 @@ void find_player_pos(void)
 
 void create_boarder(void)
 {
- // int startX;
- // int startY;
- // int endX;
- // int endY;
  t_point start;
  t_point end;
 
- start.ix = mstr.mnMp.floorX;
- start.iy = mstr.mnMp.floorY;
- end.ix = mstr.mnMp.ceilX;
- end.iy = mstr.mnMp.ceilY;
+ start.ix = mstr.mnMp.floor.ix;
+ start.iy = mstr.mnMp.floor.iy;
+ end.ix = mstr.mnMp.ceil.ix;
+ end.iy = mstr.mnMp.ceil.iy;
  lineT(start, (t_point){.ix = end.ix, .iy = start.iy});
  lineT(start, (t_point){.ix = start.ix, .iy = end.iy});
- mstr.ray.img_pos.ix = start.ix + (MnMp_W / 2) - (mstr.mnMp.imgW / 2);
- mstr.ray.img_pos.iy = start.iy + (MnMp_H / 2) - (mstr.mnMp.imgH / 2);
  mstr.ray.pos.x = start.ix + (MnMp_W / 2);
  mstr.ray.pos.y = start.iy + (MnMp_H / 2);
+ mstr.ray.img_pos.ix = mstr.ray.pos.x - (mstr.mnMp.imgW / 2);
+ mstr.ray.img_pos.iy = mstr.ray.pos.y - (mstr.mnMp.imgH / 2);
+ mstr.mnMp.start.ix = mstr.ray.pos.x - (tireSz / 2);
+ mstr.mnMp.start.iy = mstr.ray.pos.y - (tireSz / 2);
 }
 
 void draw_minimap(int x, int y)

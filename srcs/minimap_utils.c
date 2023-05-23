@@ -40,7 +40,6 @@ int input_ok(int tireX, int tireY)
   return (1);
 }
 
-// void fill_zone(int tireX, int tireY, int imgPosX, int imgPosY)
 void fill_zone(int tireX, int tireY, t_point start)
 {
   char **map;
@@ -52,19 +51,6 @@ void fill_zone(int tireX, int tireY, t_point start)
     draw_wall(start);
   map[tireY][tireX] = '2';
   draw_tire(start, tireX, tireY);
-  // // left
-  // if (input_ok(tireX - 1, tireY) && map[tireY][tireX - 1] != '2')
-  //   fill_zone(tireX - 1, tireY, (t_point){.ix = start.ix - tireSz, .iy = start.iy});
-  // // right
-  // if (input_ok(tireX + 1, tireY) && map[tireY][tireX + 1] != '2')
-  //   fill_zone(tireX + 1, tireY, (t_point){.ix = start.ix + tireSz, .iy = start.iy});
-  // // top
-  // if (input_ok(tireX, tireY - 1) && map[tireY - 1][tireX] != '2')
-  //   fill_zone(tireX, tireY - 1, (t_point){.ix = start.ix, .iy = start.iy - tireSz});
-  // // down
-  // if (input_ok(tireX, tireY + 1) && map[tireY + 1][tireX] != '2')
-  //   fill_zone(tireX, tireY + 1, (t_point){.ix = start.ix, .iy = start.iy + tireSz});
-
   // left
   if (input_ok(tireX - 1, tireY) && map[tireY][tireX - 1] != '2')
     fill_zone(tireX - 1, tireY, (t_point){.ix = start.ix - tireSz, .iy = start.iy});
@@ -92,5 +78,6 @@ void flood_tire(void)
     re_init_map();
   if (!input_ok(tireX, tireY))
     return;
-  fill_zone(tireX, tireY, mstr.ray.img_pos);
+  // fill_zone(tireX, tireY, mstr.ray.img_pos);
+  fill_zone(tireX, tireY, mstr.mnMp.start);
 }

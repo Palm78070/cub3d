@@ -24,10 +24,8 @@ int initmstr(t_cub3d *mstr)
  mstr->map.mapH = 0;
  mstr->color = 0xFFFFFF;
  mstr->mnMp.rl_path = "./img/red_dot_20.xpm";
- mstr->mnMp.floorX = SC_W - MnMp_W;
- mstr->mnMp.floorY = SC_H - MnMp_H;
- mstr->mnMp.ceilX = mstr->mnMp.floorX + MnMp_W;
- mstr->mnMp.ceilY = mstr->mnMp.floorY + MnMp_H;
+ mstr->mnMp.floor = (t_point){.ix = SC_W - MnMp_W, .iy = SC_H - MnMp_H};
+ mstr->mnMp.ceil = (t_point){.ix = SC_W, .iy = SC_H};
  mstr->ray.tire = (t_point){.ix = -1, .iy = -1};
  mstr->ray.img_pos = (t_point){.ix = (SC_W / 2) - tireSz / 2,
 																															.iy = (SC_H / 2) - tireSz / 2};

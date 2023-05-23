@@ -54,18 +54,6 @@ typedef struct s_mlx
     int endian;
 } t_mlx;
 
-typedef struct s_minimap
-{
-    void *img;
-    char *rl_path;
-    int imgW;
-    int imgH;
-    int floorX;
-    int floorY;
-    int ceilX;
-    int ceilY;
-} t_minimap;
-
 typedef struct s_point
 {
     float x;
@@ -73,6 +61,18 @@ typedef struct s_point
     int ix;
     int iy;
 } t_point;
+
+typedef struct s_minimap
+{
+    void *img;
+    char *rl_path;
+    int imgW;
+    int imgH;
+    t_point floor;
+    t_point ceil;
+    t_point start;
+} t_minimap;
+
 typedef struct s_vec
 {
     float x;
@@ -103,8 +103,6 @@ typedef struct s_ray
 typedef struct s_rotate
 {
     float rad;
-    // float rdx;
-    // float rdy;
 } t_rotate;
 typedef struct s_cub3d
 {
