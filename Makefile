@@ -25,12 +25,14 @@ SRCS = cub3d.c \
 		storfile2tlist.c \
 		initmstr.c \
 		stormapinfo.c \
+		walk.c \
 		hook.c \
 		draw.c \
 		draw_tire.c \
 		minimap_utils.c \
 		minimap.c \
 		raycast.c \
+		texture.c \
 		clear.c \
 
 OBJS_DIR = objs/

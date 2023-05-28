@@ -28,6 +28,7 @@
 #define MnMp_W 200
 #define MnMp_H 200
 #define tireSz 20
+#define texSz 200
 #define FOV 0.66
 typedef struct s_mapinfo
 {
@@ -88,6 +89,7 @@ typedef struct s_ray
     t_point img_pos;
     t_point step;
     t_point lmt;
+    t_point tex;
     t_vec pos;
     t_vec dir;
     t_vec plane;
@@ -98,6 +100,7 @@ typedef struct s_ray
     int isX;
     float camX;
     float ppwd;
+    float wallHit;
 } t_ray;
 
 typedef struct s_rotate
@@ -138,11 +141,16 @@ void stormapinfo(t_list *tmpmap, t_mapinfo *map);
 
 // mlx
 void mlx_setup();
+// walk
+void walkUp(void);
+void walkDown(void);
+void walkLeft(void);
+void walkRight(void);
 // hook
 int handle_key(int key_code);
 int handle_cross(void);
-int handle_walk(int key_code);
-// draw
+// int handle_walk(int key_code);
+//  draw
 void ft_pixel_put(int x, int y, int color);
 int dn(int n0, int n1);
 void line(float x0, float y0, float x1, float y1);
@@ -161,6 +169,8 @@ void lineT(t_point p0, t_point p1);
 //  raycasting
 void raycast(float tireX, float tireY);
 void raycast2(void);
+// texture
+void getTextPoint(void);
 // clear
 void ft_clear(void);
 void ft_error(char *s);
