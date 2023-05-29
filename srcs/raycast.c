@@ -50,6 +50,8 @@ t_vec rotate(t_vec v)
     v.x = 1;
   if (v.x < -1)
     v.x = -1;
+  v.x = roundf(v.x * 10) / 10;
+  v.y = roundf(v.y * 10) / 10;
   // printf("After Rotate v.x: %f v.y: %f\n", v.x, v.y);
   return (v);
 }
