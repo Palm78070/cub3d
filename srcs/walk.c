@@ -54,12 +54,9 @@ void walkLeft(void)
  printf("????????In walkLeft??????????\n");
  int x;
  int y;
- float tmpDirX;
 
  x = mstr.ray.tire.ix;
  y = mstr.ray.tire.iy;
- tmpDirX = mstr.ray.dir.x;
- // nomalise();
  if ((mstr.ray.dir.y >= -1 && mstr.ray.dir.y <= -0.25) && (mstr.ray.dir.x >= -1 && mstr.ray.dir.x <= -0.25) && ++y) // Left Down
  {
   printf("//////////////Left Down////////////////\n");
@@ -82,15 +79,14 @@ void walkLeft(void)
  }
  else if (lmt0(mstr.ray.dir.x))
   x -= 1;
- else if (mstr.ray.dir.x != 0 && mstr.ray.dir.x < 0)
+ else if (mstr.ray.dir.x == -1 && (mstr.ray.dir.y > -0.25 && mstr.ray.dir.y < 0.25))
   y += 1;
- else if (mstr.ray.dir.x != 0 && mstr.ray.dir.x > 0)
+ else if (mstr.ray.dir.x == 1 && (mstr.ray.dir.y > -0.25 && mstr.ray.dir.y < 0.25))
   y -= 1;
  if (input_ok(x, y) && mstr.map.map[y][x] == '1')
   return;
  mstr.ray.tire.ix = x;
  mstr.ray.tire.iy = y;
- mstr.ray.dir.x = tmpDirX;
  re_draw();
 }
 
@@ -98,12 +94,9 @@ void walkRight(void)
 {
  int x;
  int y;
- float tmpDirX;
 
  x = mstr.ray.tire.ix;
  y = mstr.ray.tire.iy;
- tmpDirX = mstr.ray.dir.x;
- // nomalise();
  if ((mstr.ray.dir.y >= -1 && mstr.ray.dir.y <= -0.25) && (mstr.ray.dir.x >= -1 && mstr.ray.dir.x <= -0.25) && --y) // Right Up
   x += 1;
  else if ((mstr.ray.dir.y >= -1 && mstr.ray.dir.y <= -0.25) && (mstr.ray.dir.x >= 0.25 && mstr.ray.dir.x <= 1) && ++y) // Right Down
@@ -114,14 +107,13 @@ void walkRight(void)
   x -= 1;
  else if (lmt0(mstr.ray.dir.x))
   x += 1;
- else if (mstr.ray.dir.x != 0 && mstr.ray.dir.x < 0)
+ else if (mstr.ray.dir.x == -1 && (mstr.ray.dir.y > -0.25 && mstr.ray.dir.y < 0.25))
   y -= 1;
- else if (mstr.ray.dir.x != 0 && mstr.ray.dir.x > 0)
+ else if (mstr.ray.dir.x == 1 && (mstr.ray.dir.y > -0.25 && mstr.ray.dir.y < 0.25))
   y += 1;
  if (input_ok(x, y) && mstr.map.map[y][x] == '1')
   return;
  mstr.ray.tire.ix = x;
  mstr.ray.tire.iy = y;
- mstr.ray.dir.x = tmpDirX;
  re_draw();
 }
