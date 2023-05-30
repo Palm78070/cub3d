@@ -190,21 +190,21 @@ void raycast(float tireX, float tireY)
   {
     drawRay(0, 0, tireX, tireY);
     // printf("hit wall map[%i][%i] ", (int)tireY, (int)tireX);
+    // printf("//////////////Component of wallHit///////////////////\n");
     if (mstr.ray.isX)
     {
-      // printf("\nX side");
+      // printf("\nX side ");
       mstr.ray.ppwd = (mstr.ray.sideDst.x - mstr.ray.deltaDst.x);
-      mstr.ray.wallHit = (float)mstr.ray.pos.x + (float)mstr.ray.ppwd * (float)mstr.ray.rayDir.x;
-      // mstr.ray.wallHit = (float)mstr.ray.tire.ix + (float)mstr.ray.ppwd * (float)mstr.ray.rayDir.x;
+      mstr.ray.wallHit = (float)mstr.ray.pos.y + (float)mstr.ray.ppwd * (float)mstr.ray.rayDir.y;
     }
     else
     {
-      // printf("\nY side");
+      // printf("\nY side ");
       mstr.ray.ppwd = (mstr.ray.sideDst.y - mstr.ray.deltaDst.y);
-      mstr.ray.wallHit = (float)mstr.ray.pos.y + (float)mstr.ray.ppwd * (float)mstr.ray.rayDir.y;
-      // mstr.ray.wallHit = (float)mstr.ray.tire.iy + (float)mstr.ray.ppwd * (float)mstr.ray.rayDir.y;
+      mstr.ray.wallHit = (float)mstr.ray.pos.x + (float)mstr.ray.ppwd * (float)mstr.ray.rayDir.x;
     }
     // printf(" ppwd: %f rayDirX: %f rayDirY: %f\n", mstr.ray.ppwd, mstr.ray.rayDir.x, mstr.ray.rayDir.y);
+    // printf("wallHit before -floor %f", mstr.ray.wallHit);
     mstr.ray.wallHit -= floor(mstr.ray.wallHit);
     getTextPoint();
     // printf("\nwallHit %f ", mstr.ray.wallHit);
