@@ -251,4 +251,5 @@ void raycast2(void)
   // printf("rdx %f\n", mstr.rot.rdx);
   // printf("rdy %f\n", mstr.rot.rdy);
   printf("dirX: %f dirY: %f\n", mstr.ray.dir.x, mstr.ray.dir.y);
+  printf("mapW: %i mapH: %i\n", mstr.map.mapW, mstr.map.mapH);
 }
